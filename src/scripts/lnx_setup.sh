@@ -300,6 +300,7 @@ function install_Rstudio {
 function start_Rstudio_service {
     log_task "Starting RStudio-Server Service"
     sudo systemctl start rstudio-server &> /dev/null || {
+        sudo systemctl start rstudio-server
         log_error "Encounterd Non 0 Return-Code while starting \'rstudio-server\' service"
         log_warning "Setup ran into a Fatal Error --> exiting with code 1"
         exit 1
@@ -309,6 +310,7 @@ function start_Rstudio_service {
 function enable_Rstudio_service {
     log_task "Enabling RStudio-Server Service"
     sudo systemctl enable rstudio-server &> /dev/null || {
+        sudo systemctl enable rstudio-server
         log_error "Encounterd Non 0 Return-Code while enabling \'rstudio-server\' service"
         log_warning "Setup ran into a Fatal Error --> exiting with code 1"
         exit 1
