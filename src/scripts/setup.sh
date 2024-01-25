@@ -7,7 +7,6 @@
 #
 
 PACKMAN="apt"
-WORKING_DIR="~/r_project"
 LOG_PAD=0
 LOG_PADDING=""
 
@@ -16,14 +15,8 @@ RS_D_URL="https://download1.rstudio.org/electron/jammy/amd64/rstudio-2023.12.0-3
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
-        -wd|--work-dir)
-            WORKING_DIR="${2}"
-            shift;;
         -nu|--no-update)
             DO_UPDATE=0
-            shift;;
-        -osv|--os-version)
-            OS_VERSION="${2}"
             shift;;
         -durl|--rstudio-d-url)
             RS_D_URL="${2}"
@@ -165,22 +158,6 @@ function update_packman {
     }
 
     log_success "All Packages are now on the newest available Version"
-
-    end_job
-}
-
-function setup_working_dir {
-    start_job "Check Working directory (${WORKING_DIR}) exists"
-    
-    [ -d "$WORKING_DIR" ] && log_success "Working Directory exists" || {
-        log_warning "Working Directory was not found"
-        log_task "create Working Directory"
-        mkdir $WORKING_DIR && log_success "Successfully created Directory" || {
-            log_error "Could not create the Working directory"
-            log_warning "Setup ran into a Fatal Error --> exiting with code 1"
-            exit 1
-        }
-    }
 
     end_job
 }
